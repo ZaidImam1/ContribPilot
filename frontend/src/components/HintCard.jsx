@@ -101,7 +101,7 @@ function HintValue({ value }) {
 
   if (typeof value === "string") {
     return (
-      <p className="text-[14px] sm:text-[15px] text-white/90 font-mono leading-7 whitespace-pre-wrap break-words">
+      <p className="text-[15px] text-slate-200 leading-7 whitespace-pre-wrap break-words">
         {value}
       </p>
     );
@@ -112,7 +112,7 @@ function HintValue({ value }) {
     typeof value === "boolean"
   ) {
     return (
-      <span className="text-[14px] sm:text-[15px] text-white/90 font-mono leading-7">
+      <span className="text-[15px] text-slate-200 leading-7">
         {String(value)}
       </span>
     );
@@ -124,7 +124,7 @@ function HintValue({ value }) {
         {value.map((item, index) => (
           <span
             key={index}
-            className="px-3 py-1.5 text-[12px] sm:text-[13px] font-mono rounded-lg border border-white/15 text-white/90 leading-5"
+            className="px-3 py-1.5 text-[13px] rounded-lg border border-white/10 bg-white/5 text-slate-200 leading-5"
           >
             {typeof item === "object"
               ? JSON.stringify(item)
@@ -137,7 +137,7 @@ function HintValue({ value }) {
 
   if (typeof value === "object") {
     return (
-      <pre className="text-[13px] sm:text-[14px] text-white/85 font-mono leading-6 whitespace-pre-wrap break-words overflow-x-auto">
+      <pre className="text-[13px] text-slate-200 font-mono leading-6 whitespace-pre-wrap break-words overflow-x-auto rounded-lg bg-[#0c0e13] border border-white/10 p-3">
         {JSON.stringify(value, null, 2)}
       </pre>
     );
@@ -159,10 +159,10 @@ function MiniChipList({
     <div className="mt-4">
       <div className="flex items-center gap-2 mb-2.5">
         {Icon && (
-          <Icon className="w-3.5 h-3.5 text-white/60" />
+          <Icon className="w-4 h-4 text-indigo-300" />
         )}
 
-        <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-white/60">
+        <span className="text-sm font-medium text-slate-300">
           {label}
         </span>
       </div>
@@ -171,7 +171,7 @@ function MiniChipList({
         {items.map((item, index) => (
           <span
             key={index}
-            className="px-2.5 py-1.5 text-[11px] sm:text-[12px] font-mono rounded-md border border-white/15 text-white/90 leading-5"
+            className="px-2.5 py-1.5 text-xs font-mono rounded-md border border-white/10 bg-[#0c0e13] text-slate-200 leading-5"
           >
             {typeof item === "string"
               ? item
@@ -294,7 +294,7 @@ function renderSpecialField(key, value) {
 function HintContent({ payload }) {
   if (!payload) {
     return (
-      <p className="text-[13px] font-mono text-white/50 italic">
+      <p className="text-sm text-slate-400 italic">
         No hint content provided.
       </p>
     );
@@ -305,7 +305,7 @@ function HintContent({ payload }) {
     typeof payload === "number"
   ) {
     return (
-      <p className="text-[14px] sm:text-[15px] text-white/90 font-mono leading-7 whitespace-pre-wrap break-words">
+      <p className="text-[15px] text-slate-200 leading-7 whitespace-pre-wrap break-words">
         {String(payload)}
       </p>
     );
@@ -315,7 +315,7 @@ function HintContent({ payload }) {
 
   if (!entries.length) {
     return (
-      <p className="text-[13px] font-mono text-white/50 italic">
+      <p className="text-sm text-slate-400 italic">
         No hint content provided.
       </p>
     );
@@ -338,13 +338,13 @@ function HintContent({ payload }) {
               key={key}
               className="flex items-center gap-2.5"
             >
-              <Braces className="w-4 h-4 text-white/50" />
+              <Braces className="w-4 h-4 text-indigo-300" />
 
-              <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-white/55">
+              <span className="text-sm font-medium text-slate-300">
                 Guidance Level
               </span>
 
-              <span className="text-[13px] font-mono text-white/90">
+              <span className="text-sm text-white px-2 py-0.5 rounded-md bg-white/10">
                 {String(value)}
               </span>
             </div>
@@ -370,9 +370,9 @@ function HintContent({ payload }) {
             className="space-y-2"
           >
             <div className="flex items-center gap-2.5">
-              <Focus className="w-3.5 h-3.5 text-white/50" />
+              <Focus className="w-4 h-4 text-indigo-300" />
 
-              <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-white/55">
+              <span className="text-sm font-medium text-slate-300">
                 {formatLabel(key)}
               </span>
             </div>
@@ -491,11 +491,11 @@ export default function HintCard({
   const levels = [1, 2, 3];
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-transparent p-6 sm:p-7 shadow-[0_0_40px_-10px_rgba(139,92,246,0.2)]">
-      <div className="flex items-center gap-2 mb-6">
-        <Lightbulb className="w-4 h-4 text-white" />
+    <div className="rounded-2xl border border-white/10 bg-[#13161d] p-6 sm:p-7">
+      <div className="flex items-center gap-2.5 mb-5">
+        <Lightbulb className="w-5 h-5 text-amber-300" />
 
-        <h2 className="text-xs font-mono tracking-[0.15em] text-white uppercase">
+        <h2 className="text-base font-semibold text-white">
           Guided Hints
         </h2>
       </div>
@@ -514,7 +514,7 @@ export default function HintCard({
           return (
             <div
               key={level}
-              className="rounded-xl border border-white/10 overflow-hidden transition-all duration-300"
+              className="rounded-xl border border-white/10 bg-[#0c0e13] overflow-hidden"
             >
               <button
                 type="button"
@@ -522,26 +522,26 @@ export default function HintCard({
                   handleHintClick(level)
                 }
                 disabled={isLoading}
-                className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left hover:bg-white/[0.03] transition-colors disabled:opacity-60"
+                className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left hover:bg-white/5 transition-colors disabled:opacity-60"
               >
                 <div className="flex items-center gap-2.5">
-                  <Focus className="w-4 h-4 text-white/70" />
+                  <Focus className="w-4 h-4 text-indigo-300" />
 
-                  <span className="text-[12px] font-mono tracking-[0.15em] text-white/90 uppercase">
+                  <span className="text-sm font-medium text-slate-100">
                     Hint {level}
                   </span>
                 </div>
 
                 <div className="flex items-center gap-2">
                   {isLoading && (
-                    <Loader2 className="w-4 h-4 text-white/60 animate-spin" />
+                    <Loader2 className="w-4 h-4 text-slate-300 animate-spin" />
                   )}
 
                   {!isLoading &&
                     (isOpen ? (
-                      <ChevronUp className="w-4 h-4 text-white/60" />
+                      <ChevronUp className="w-4 h-4 text-slate-400" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-white/60" />
+                      <ChevronDown className="w-4 h-4 text-slate-400" />
                     ))}
                 </div>
               </button>
@@ -553,7 +553,7 @@ export default function HintCard({
                       payload={hints[level]}
                     />
                   ) : isLoading ? (
-                    <div className="flex items-center gap-2 text-[13px] font-mono text-white/55">
+                    <div className="flex items-center gap-2 text-sm text-slate-400">
                       <Loader2 className="w-4 h-4 animate-spin" />
                       Generating hint...
                     </div>
@@ -566,7 +566,7 @@ export default function HintCard({
       </div>
 
       {error && (
-        <p className="mt-5 text-[12px] font-mono text-yellow-300 leading-6 whitespace-pre-wrap">
+        <p className="mt-5 text-sm text-amber-300 leading-6 whitespace-pre-wrap">
           {error}
         </p>
       )}

@@ -8,6 +8,21 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
+const cardClass =
+  "rounded-2xl border border-white/10 bg-[#13161d] p-6 sm:p-8";
+
+const labelClass =
+  "block text-sm font-medium text-slate-300 mb-2";
+
+const inputClass =
+  "w-full px-4 py-3 pr-14 rounded-xl bg-[#0c0e13] border border-white/10 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/15 transition font-mono text-sm";
+
+const eyeBtnClass =
+  "absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 grid place-items-center rounded-lg bg-white/5 border border-white/10 text-slate-200 hover:bg-white/10 hover:text-white active:scale-95 transition z-10";
+
+const saveBtnClass =
+  "inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-xl font-semibold text-sm transition-colors active:scale-[0.98]";
+
 export default function Config() {
   const [githubToken, setGithubToken] = useState("");
   const [llmKey, setLlmKey] = useState("");
@@ -39,40 +54,38 @@ export default function Config() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-24">
-      <div className="max-w-3xl mx-auto px-5">
+    <div className="min-h-screen pt-12 pb-24">
+      <div className="max-w-2xl mx-auto px-5">
 
         {/* ---------- Page Header ---------- */}
-        <div className="mb-11 text-center">
-          <span className="text-[11px] font-mono tracking-[0.2em] text-white/70 uppercase">
+        <div className="mb-8 text-center">
+          <span className="text-sm font-medium text-indigo-300">
             Configuration
           </span>
 
-          <h1 className="text-4xl md:text-5xl font-extrabold mt-3 tracking-tight text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mt-2 tracking-tight text-white">
             Connect your developer tools.
           </h1>
 
-          <p className="text-[15px] sm:text-base font-mono text-white/70 mt-4 max-w-2xl mx-auto leading-7">
+          <p className="text-base text-slate-300 mt-4 max-w-xl mx-auto leading-7">
             Configure your credentials to enable AI analysis and GitHub access.
           </p>
         </div>
 
         {/* ---------- GitHub Token Card ---------- */}
-        <div className="rounded-2xl border border-white/10 bg-transparent p-6 sm:p-8 shadow-[0_0_40px_-10px_rgba(139,92,246,0.2)]">
-
+        <div className={cardClass}>
           <div className="flex items-center gap-2.5 mb-6">
-            <Code className="w-5 h-5 text-white" />
+            <Code className="w-5 h-5 text-indigo-300" />
 
-            <h2 className="text-[13px] font-mono font-semibold tracking-[0.15em] text-white uppercase">
+            <h2 className="text-base font-semibold text-white">
               GitHub Configuration
             </h2>
           </div>
 
-          <label className="block text-[12px] font-mono tracking-[0.15em] text-white/80 uppercase mb-3">
+          <label className={labelClass}>
             Personal Access Token
           </label>
 
-          {/* GitHub Token Input */}
           <div className="relative">
             <input
               type={showGithub ? "text" : "password"}
@@ -83,10 +96,9 @@ export default function Config() {
               placeholder="github_pat_••••••••••••••••"
               autoComplete="off"
               spellCheck={false}
-              className="w-full px-4 py-3.5 pr-14 rounded-xl bg-[#0d1018] border border-white/20 text-white placeholder:text-white/35 focus:outline-none focus:border-violet-500/60 focus:shadow-[0_0_25px_-5px_rgba(139,92,246,0.5)] transition-all duration-200 font-mono text-[14px]"
+              className={inputClass}
             />
 
-            {/* Show / Hide Button */}
             <button
               type="button"
               onClick={() =>
@@ -97,23 +109,17 @@ export default function Config() {
                   ? "Hide GitHub token"
                   : "Show GitHub token"
               }
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 grid place-items-center rounded-lg bg-[#1a1f30] border border-white/20 text-white hover:bg-[#252b3c] hover:border-white/40 active:scale-95 transition-all duration-200 z-10"
+              className={eyeBtnClass}
             >
               {showGithub ? (
-                <EyeOff
-                  className="w-5 h-5"
-                  strokeWidth={2.2}
-                />
+                <EyeOff className="w-4 h-4" />
               ) : (
-                <Eye
-                  className="w-5 h-5"
-                  strokeWidth={2.2}
-                />
+                <Eye className="w-4 h-4" />
               )}
             </button>
           </div>
 
-          <p className="text-[12px] font-mono text-white/60 mt-3 leading-6">
+          <p className="text-sm text-slate-400 mt-3 leading-6">
             Required for accessing GitHub repositories and issues.
           </p>
 
@@ -121,17 +127,13 @@ export default function Config() {
             <button
               type="button"
               onClick={handleSaveGithub}
-              className="inline-flex items-center justify-center gap-2 text-white px-6 py-3 rounded-xl font-mono font-semibold text-[13px] transition-all duration-300 border border-[#6d8cff] shadow-[0_0_18px_-4px_rgba(109,140,255,0.55)] hover:shadow-[0_0_26px_-4px_rgba(109,140,255,0.85)] hover:border-[#8aa3ff] active:scale-[0.98]"
-              style={{
-                background:
-                  "linear-gradient(to right, rgba(109,140,255,0.12), rgba(109,140,255,0.05))",
-              }}
+              className={saveBtnClass}
             >
               Save Token
             </button>
 
             {savedGithub && (
-              <span className="flex items-center gap-1.5 text-[12px] font-mono text-green-400">
+              <span className="flex items-center gap-1.5 text-sm text-green-400">
                 <CheckCircle2 className="w-4 h-4" />
                 Token saved
               </span>
@@ -140,21 +142,19 @@ export default function Config() {
         </div>
 
         {/* ---------- LLM API Key Card ---------- */}
-        <div className="mt-6 rounded-2xl border border-white/10 bg-transparent p-6 sm:p-8 shadow-[0_0_40px_-10px_rgba(139,92,246,0.2)]">
-
+        <div className={`mt-6 ${cardClass}`}>
           <div className="flex items-center gap-2.5 mb-6">
-            <Sparkles className="w-5 h-5 text-white" />
+            <Sparkles className="w-5 h-5 text-indigo-300" />
 
-            <h2 className="text-[13px] font-mono font-semibold tracking-[0.15em] text-white uppercase">
+            <h2 className="text-base font-semibold text-white">
               AI Configuration
             </h2>
           </div>
 
-          <label className="block text-[12px] font-mono tracking-[0.15em] text-white/80 uppercase mb-3">
+          <label className={labelClass}>
             LLM API Key
           </label>
 
-          {/* LLM API Key Input */}
           <div className="relative">
             <input
               type={showLlm ? "text" : "password"}
@@ -165,10 +165,9 @@ export default function Config() {
               placeholder="gsk_••••••••••••••••••••••••"
               autoComplete="off"
               spellCheck={false}
-              className="w-full px-4 py-3.5 pr-14 rounded-xl bg-[#0d1018] border border-white/20 text-white placeholder:text-white/35 focus:outline-none focus:border-violet-500/60 focus:shadow-[0_0_25px_-5px_rgba(139,92,246,0.5)] transition-all duration-200 font-mono text-[14px]"
+              className={inputClass}
             />
 
-            {/* Show / Hide Button */}
             <button
               type="button"
               onClick={() =>
@@ -179,23 +178,17 @@ export default function Config() {
                   ? "Hide LLM API key"
                   : "Show LLM API key"
               }
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 grid place-items-center rounded-lg bg-[#1a1f30] border border-white/20 text-white hover:bg-[#252b3c] hover:border-white/40 active:scale-95 transition-all duration-200 z-10"
+              className={eyeBtnClass}
             >
               {showLlm ? (
-                <EyeOff
-                  className="w-5 h-5"
-                  strokeWidth={2.2}
-                />
+                <EyeOff className="w-4 h-4" />
               ) : (
-                <Eye
-                  className="w-5 h-5"
-                  strokeWidth={2.2}
-                />
+                <Eye className="w-4 h-4" />
               )}
             </button>
           </div>
 
-          <p className="text-[12px] font-mono text-white/60 mt-3 leading-6">
+          <p className="text-sm text-slate-400 mt-3 leading-6">
             Used for AI-powered issue analysis, breakdowns, and hints.
           </p>
 
@@ -203,17 +196,13 @@ export default function Config() {
             <button
               type="button"
               onClick={handleSaveLlm}
-              className="inline-flex items-center justify-center gap-2 text-white px-6 py-3 rounded-xl font-mono font-semibold text-[13px] transition-all duration-300 border border-[#6d8cff] shadow-[0_0_18px_-4px_rgba(109,140,255,0.55)] hover:shadow-[0_0_26px_-4px_rgba(109,140,255,0.85)] hover:border-[#8aa3ff] active:scale-[0.98]"
-              style={{
-                background:
-                  "linear-gradient(to right, rgba(109,140,255,0.12), rgba(109,140,255,0.05))",
-              }}
+              className={saveBtnClass}
             >
               Save Key
             </button>
 
             {savedLlm && (
-              <span className="flex items-center gap-1.5 text-[12px] font-mono text-green-400">
+              <span className="flex items-center gap-1.5 text-sm text-green-400">
                 <CheckCircle2 className="w-4 h-4" />
                 Key saved
               </span>
@@ -222,27 +211,26 @@ export default function Config() {
         </div>
 
         {/* ---------- Security Notice ---------- */}
-        <div className="mt-6 rounded-2xl border border-white/10 bg-transparent p-6 sm:p-8 shadow-[0_0_40px_-10px_rgba(34,211,238,0.15)]">
-
-          <h2 className="text-[13px] font-mono font-semibold tracking-[0.15em] text-white uppercase mb-4">
+        <div className={`mt-6 ${cardClass}`}>
+          <h2 className="text-base font-semibold text-white mb-4">
             🔒 Credential Security
           </h2>
 
-          <ul className="text-[13px] font-mono text-white/70 space-y-2 leading-6">
+          <ul className="text-sm text-slate-300 space-y-2 leading-6 list-disc pl-5 marker:text-slate-500">
             <li>
-              • Never share your API keys or tokens publicly.
+              Never share your API keys or tokens publicly.
             </li>
 
             <li>
-              • Never commit credentials to a repository.
+              Never commit credentials to a repository.
             </li>
 
             <li>
-              • Use tokens with the minimum required permissions.
+              Use tokens with the minimum required permissions.
             </li>
 
             <li>
-              • ContribPilot does not display saved credentials.
+              ContribPilot does not display saved credentials.
             </li>
           </ul>
         </div>
