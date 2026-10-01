@@ -1,7 +1,6 @@
+
 import { useEffect, useState } from "react";
-
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-
 import { Settings } from "lucide-react";
 
 const STEPS = [
@@ -30,44 +29,41 @@ export default function Navbar({
 
   const [scrolled, setScrolled] = useState(false);
 
-  const derived =
-    currentStep ?? stepFromPath(pathname);
+  const derived = currentStep ?? stepFromPath(pathname);
 
   useEffect(() => {
     if (!blurOnScroll) return;
 
-    const onScroll = () =>
+    const onScroll = () => {
       setScrolled(window.scrollY > 8);
+    };
 
     onScroll();
 
-    window.addEventListener(
-      "scroll",
-      onScroll,
-      { passive: true }
-    );
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
 
-    return () =>
-      window.removeEventListener(
-        "scroll",
-        onScroll
-      );
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [blurOnScroll]);
 
   const shellClass = [
     "sticky top-0 z-50",
     "bg-transparent",
-
     blurOnScroll && scrolled
       ? "backdrop-blur-xl border-b border-[#252b3c]"
       : "border-b border-transparent",
-
     "transition-colors duration-300",
   ]
     .filter(Boolean)
     .join(" ");
 
-  // Base styles
+  // --------------------------------------------------
+  // Base navigation styles
+  // --------------------------------------------------
+
   const baseLink =
     "px-4 py-2 rounded-lg text-xs font-mono transition-colors";
 
@@ -80,15 +76,13 @@ export default function Navbar({
   const linkClass = ({ isActive }) =>
     [
       baseLink,
-      isActive
-        ? activeLink
-        : inactiveLink,
+      isActive ? activeLink : inactiveLink,
     ].join(" ");
 
-  // Contributions active on both:
-  // /contrib
-  // /contrib/issue/:id
-  // /issue/:id
+  // --------------------------------------------------
+  // Contributions active state
+  // --------------------------------------------------
+
   const contributionsActive =
     pathname.startsWith("/contrib") ||
     pathname.startsWith("/issue");
@@ -97,7 +91,9 @@ export default function Navbar({
     <header className={shellClass}>
       <div className="max-w-[1450px] mx-auto px-5 h-[68px] flex items-center justify-between">
 
-        {/* ---------- Logo ---------- */}
+        {/* ------------------------------------------------
+            Logo
+        ------------------------------------------------ */}
         <button
           onClick={() => navigate("/")}
           className="flex items-center gap-3 shrink-0"
@@ -114,9 +110,12 @@ export default function Navbar({
           </div>
         </button>
 
-        {/* ---------- Primary nav ---------- */}
+        {/* ------------------------------------------------
+            Primary Navigation
+        ------------------------------------------------ */}
         <nav className="hidden md:flex items-center gap-1 p-1 rounded-xl border border-[#252b3c] bg-transparent">
 
+          {/* Home */}
           <NavLink
             to="/"
             end
@@ -125,6 +124,7 @@ export default function Navbar({
             Home
           </NavLink>
 
+          {/* Explore Issues */}
           <NavLink
             to="/match"
             className={linkClass}
@@ -132,6 +132,7 @@ export default function Navbar({
             Explore Issues
           </NavLink>
 
+          {/* Contributions */}
           <NavLink
             to="/contrib"
             className={[
@@ -144,6 +145,7 @@ export default function Navbar({
             Contributions
           </NavLink>
 
+          {/* Configuration */}
           <NavLink
             to="/config"
             className={linkClass}
@@ -151,16 +153,18 @@ export default function Navbar({
             Configuration
           </NavLink>
 
+          {/* Docs */}
           <NavLink
             to="/docs"
             className={linkClass}
           >
             Docs
           </NavLink>
-
         </nav>
 
-        {/* ---------- Current contribution step ---------- */}
+        {/* ------------------------------------------------
+            Current Contribution Step
+        ------------------------------------------------ */}
         {derived >= 0 && (
           <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#30384f] bg-transparent">
 
@@ -175,11 +179,12 @@ export default function Navbar({
             <span className="text-xs text-slate-300">
               {STEPS[derived]}
             </span>
-
           </div>
         )}
 
-        {/* ---------- Right cluster ---------- */}
+        {/* ------------------------------------------------
+            Right Cluster
+        ------------------------------------------------ */}
         <div className="flex items-center gap-3">
 
           {/* GitHub Connected */}
@@ -205,7 +210,6 @@ export default function Navbar({
               }`}
             />
           </button>
-
         </div>
       </div>
     </header>

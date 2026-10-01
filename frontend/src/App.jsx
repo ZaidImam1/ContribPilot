@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Matchmaker from "./pages/Matchmaker";
 import Config from "./pages/Config";
 import IssueDetails from "./pages/IssueDetails";
+import Docs from "./pages/Docs.jsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/contrib" element={<IssueDetails />} />
         <Route path="/contrib/issue/:id" element={<IssueDetails />} />
         <Route path="/issue/:id" element={<IssueDetails />} />
+        <Route path="/docs" element={<Docs/>}/>
       </Routes>
     </Router>
   );
