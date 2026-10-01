@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Settings } from "lucide-react";
@@ -49,13 +48,13 @@ export default function Navbar({
     };
   }, [blurOnScroll]);
 
+  // Solid navbar so page content never shows through the text
   const shellClass = [
     "sticky top-0 z-50",
-    "bg-transparent",
-    blurOnScroll && scrolled
-      ? "backdrop-blur-xl border-b border-[#252b3c]"
-      : "border-b border-transparent",
-    "transition-colors duration-300",
+    "bg-[#0c0e13]/95 backdrop-blur-md",
+    "border-b border-white/10",
+    blurOnScroll && scrolled ? "shadow-lg shadow-black/30" : "",
+    "transition-shadow duration-300",
   ]
     .filter(Boolean)
     .join(" ");
@@ -65,13 +64,13 @@ export default function Navbar({
   // --------------------------------------------------
 
   const baseLink =
-    "px-4 py-2 rounded-lg text-xs font-mono transition-colors";
+    "px-4 py-2 rounded-lg text-sm font-medium transition-colors";
 
   const activeLink =
-    "text-violet-200 bg-[#0d1018]";
+    "text-white bg-white/10";
 
   const inactiveLink =
-    "text-slate-400 hover:text-slate-200";
+    "text-slate-400 hover:text-white hover:bg-white/5";
 
   const linkClass = ({ isActive }) =>
     [
@@ -89,50 +88,35 @@ export default function Navbar({
 
   return (
     <header className={shellClass}>
-      <div className="max-w-[1450px] mx-auto px-5 h-[68px] flex items-center justify-between">
+      <div className="max-w-[1200px] mx-auto px-5 h-16 flex items-center justify-between gap-4">
 
-        {/* ------------------------------------------------
-            Logo
-        ------------------------------------------------ */}
+        {/* Logo */}
         <button
           onClick={() => navigate("/")}
           className="flex items-center gap-3 shrink-0"
           aria-label="ContribPilot home"
         >
           <div className="text-left">
-            <b className="text-lg leading-none text-white">
+            <b className="block text-lg leading-none text-white font-semibold">
               ContribPilot
             </b>
 
-            <div className="font-mono text-[9px] text-violet-300 tracking-[.22em] mt-1">
-              VERIFIED CONTRIBUTION
+            <div className="text-[11px] text-slate-400 mt-1">
+              Verified contribution
             </div>
           </div>
         </button>
 
-        {/* ------------------------------------------------
-            Primary Navigation
-        ------------------------------------------------ */}
-        <nav className="hidden md:flex items-center gap-1 p-1 rounded-xl border border-[#252b3c] bg-transparent">
-
-          {/* Home */}
-          <NavLink
-            to="/"
-            end
-            className={linkClass}
-          >
+        {/* Primary Navigation */}
+        <nav className="hidden md:flex items-center gap-1">
+          <NavLink to="/" end className={linkClass}>
             Home
           </NavLink>
 
-          {/* Explore Issues */}
-          <NavLink
-            to="/match"
-            className={linkClass}
-          >
+          <NavLink to="/match" className={linkClass}>
             Explore Issues
           </NavLink>
 
-          {/* Contributions */}
           <NavLink
             to="/contrib"
             className={[
@@ -145,67 +129,52 @@ export default function Navbar({
             Contributions
           </NavLink>
 
-          {/* Configuration */}
-          <NavLink
-            to="/config"
-            className={linkClass}
-          >
+          <NavLink to="/config" className={linkClass}>
             Configuration
           </NavLink>
 
-          {/* Docs */}
-          <NavLink
-            to="/docs"
-            className={linkClass}
-          >
+          <NavLink to="/docs" className={linkClass}>
             Docs
           </NavLink>
         </nav>
 
-        {/* ------------------------------------------------
-            Current Contribution Step
-        ------------------------------------------------ */}
+        {/* Current Contribution Step */}
         {derived >= 0 && (
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#30384f] bg-transparent">
-
-            <span className="font-mono text-[9px] text-slate-500">
-              STEP
+          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/10 bg-[#13161d]">
+            <span className="text-xs text-slate-400">
+              Step
             </span>
 
-            <span className="font-mono text-[10px] text-violet-300">
+            <span className="text-xs font-semibold text-indigo-300">
               {String(derived + 1).padStart(2, "0")}
             </span>
 
-            <span className="text-xs text-slate-300">
+            <span className="text-sm text-slate-200">
               {STEPS[derived]}
             </span>
           </div>
         )}
 
-        {/* ------------------------------------------------
-            Right Cluster
-        ------------------------------------------------ */}
+        {/* Right Cluster */}
         <div className="flex items-center gap-3">
-
-          {/* GitHub Connected */}
-          <span className="hidden sm:inline-block font-mono text-[10px] px-2.5 py-1.5 rounded-[7px] border border-green-500/30 text-green-300">
-            ● GitHub Connected
+          <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            GitHub Connected
           </span>
 
-          {/* Settings */}
           <button
             onClick={() => navigate("/config")}
-            className={`w-9 h-9 rounded-xl grid place-items-center border transition-colors ${
+            className={`w-9 h-9 rounded-lg grid place-items-center border transition-colors ${
               pathname.startsWith("/config")
-                ? "border-violet-500/60 bg-[#111522]"
-                : "border-[#30384f] bg-transparent hover:bg-[#111522]"
+                ? "border-indigo-400/60 bg-indigo-500/15"
+                : "border-white/10 bg-[#13161d] hover:bg-white/10"
             }`}
             aria-label="Settings"
           >
             <Settings
               className={`w-4 h-4 transition-colors ${
                 pathname.startsWith("/config")
-                  ? "text-violet-300"
+                  ? "text-indigo-300"
                   : "text-slate-300"
               }`}
             />
